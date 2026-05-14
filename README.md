@@ -1,12 +1,5 @@
 # Login_with_Servlets_JSP_JDBC
 
-## Checklist
-- [x] Scan project structure
-- [x] Summarize features
-- [x] Document setup steps
-- [x] Explain build/run and usage
-- [x] Note configuration and security considerations
-
 ## Overview
 This is a small Java web app that demonstrates a login flow using:
 
