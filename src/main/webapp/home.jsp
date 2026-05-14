@@ -1,3 +1,5 @@
+<%@ page import="java.util.List" %>
+<%@ page import="com.models.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -51,6 +53,8 @@
             font-weight: 600;
             font-size: 13px;
             transition: background-color 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
         }
 
         /* Specific Button Types */
@@ -116,54 +120,34 @@
             </thead>
 
             <tbody>
-            <!-- Loop through database records here -->
+            <%
+                List<User> users = (List<User>) request.getAttribute("users");
+                if (users != null) {
+                    for (User user : users) {
+            %>
             <tr>
-                <td>1</td>
-                <td>john.doe@example.com</td>
+                <td><%= user.getId() %></td>
+                <td><%= user.getEmail() %></td>
                 <td class="password-cell">••••••••</td>
                 <td>
                     <div class="action-buttons">
-                        <button class="btn btn-edit" onclick="editUser(1)">Edit</button>
-                        <button class="btn btn-delete" onclick="deleteUser(1)">Delete</button>
+                        <a href="<%= request.getContextPath() %>/users?action=edit&id=<%= user.getId() %>" class="btn btn-edit">Edit</a>
+                        <a href="<%= request.getContextPath() %>/users?action=delete&id=<%= user.getId() %>" class="btn btn-delete" onclick="return confirm('Are you sure you want to delete this user?');">Delete</a>
                     </div>
                 </td>
             </tr>
-            <tr>
-                <td>2</td>
-                <td>jane.smith@example.com</td>
-                <td class="password-cell">••••••••</td>
-                <td>
-                    <div class="action-buttons">
-                        <button class="btn btn-edit" onclick="editUser(2)">Edit</button>
-                        <button class="btn btn-delete" onclick="deleteUser(2)">Delete</button>
-                    </div>
-                </td>
-            </tr>
+            <%
+                    }
+                }
+            %>
             </tbody>
         </table>
 
         <!-- Add button container at the end of the table -->
         <div class="table-footer">
-            <button class="btn btn-add" onclick="addUser()">+ Add New User</button>
+            <a href="<%= request.getContextPath() %>/users?action=new" class="btn btn-add">+ Add New User</a>
         </div>
     </div>
-
-    <script>
-        // Placeholder JavaScript functions for operations
-        function editUser(id) {
-            console.log("Trigger edit flow for user ID: " + id);
-        }
-
-        function deleteUser(id) {
-            if(confirm("Are you sure you want to delete user ID " + id + "?")) {
-                console.log("Trigger delete action for user ID: " + id);
-            }
-        }
-
-        function addUser() {
-            console.log("Open add user form/modal");
-        }
-    </script>
 
 </body>
 </html>
