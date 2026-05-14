@@ -12,10 +12,11 @@ public class UserRepo {
     }
     public User login(String email, String password) {
         User user = null;
-        try{
-            Connection connection = DBConnection.getInstance().getConnection();
-            String query = "SELECT * FROM users WHERE email = ? AND password = ?";
-            PreparedStatement statement = connection.prepareStatement(query);
+        String query = "SELECT * FROM users WHERE email = ? AND password = ?";
+        try(
+                Connection connection = DBConnection.getInstance().getConnection();
+                PreparedStatement statement = connection.prepareStatement(query);
+        ){
             statement.setString(1, email);
             statement.setString(2, password);
             ResultSet resultSet = statement.executeQuery();
@@ -33,4 +34,6 @@ public class UserRepo {
         }
         return user;
     }
+
+
 }
