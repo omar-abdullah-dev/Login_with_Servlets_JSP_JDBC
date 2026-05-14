@@ -81,6 +81,13 @@ public class UserServlet extends HttpServlet {
          int id = Integer.parseInt(req.getParameter("id"));
          String email = req.getParameter("email");
          String password = req.getParameter("password");
+         User existingUser = dao.getUserById(id);
+         if (email == null || email.trim().isEmpty()) {
+             email = existingUser.getEmail();
+         }
+         if (password == null || password.trim().isEmpty()) {
+             password = existingUser.getPassword();
+         }
          User user = new User(id, email,password);
          dao.updateUserInfo(user);
          resp.sendRedirect(req.getContextPath() + "/users?action=list");

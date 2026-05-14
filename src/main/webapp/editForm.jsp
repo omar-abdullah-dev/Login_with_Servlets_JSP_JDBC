@@ -18,10 +18,10 @@
         <input type="hidden" name="action" value="update">
         <input type="hidden" name="id" value="<%= user.getId() %>">
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email" value="<%= user.getEmail() %>" required>
+        <input type="email" id="email" name="email" value="<%= user.getEmail() %>">
         <br>
         <label for="password">New Password:</label>
-        <input type="password" id="password" name="password" required>
+        <input type="password" id="password" name="password" placeholder="Leave blank to keep current password">
         <br>
         <button type="submit">Update</button>
     </form>
