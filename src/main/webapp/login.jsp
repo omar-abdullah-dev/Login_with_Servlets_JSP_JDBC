@@ -98,6 +98,14 @@
         .footer-link a:hover {
             text-decoration: underline;
         }
+
+        .error {
+            margin: 10px 0 2px;
+            color: #e74c3c;
+            font-size: 12px;
+            text-align: center;
+            min-height: 16px;
+        }
     </style>
 </head>
 
@@ -105,6 +113,10 @@
 <div class="page">
     <div class="card">
         <h2>Login</h2>
+
+        <% if (request.getAttribute("errorMessage") != null) { %>
+            <div class="error"><%= request.getAttribute("errorMessage") %></div>
+        <% } %>
 
         <form action="login" method="post">
             <div class="field">
