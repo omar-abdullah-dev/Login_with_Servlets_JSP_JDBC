@@ -5,6 +5,7 @@ import com.models.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 //TODO: insert new user
@@ -21,11 +22,10 @@ public class UserDAO {
    private final static String SELECT_USER_BY_EMAIL="select * from users where email=?";
    private final static String SELECT_USER_BY_ID="select * from users where id=?";
    private final static String DELETE_USER="delete from users where id=?";
-    private final static String UPDATE_USER_INFO="update users set email=?,password=? where id=?";
+   private final static String UPDATE_USER_INFO="update users set email=?,password=? where id=?";
 //   private final static String UPDATE_USER="update users set password=? where id=?";
 
-     public UserDAO() {
-     }
+     public UserDAO() {}
 // DONE:Insert new user
      public boolean insertUser(User user) {
          try(
@@ -69,11 +69,10 @@ public class UserDAO {
          try(
                  Connection dbConnection= DBConnection.getInstance().getConnection();
                  PreparedStatement ps=dbConnection.prepareStatement(SELECT_USER_BY_EMAIL);
-                 ){
+         ){
              ps.setString(1,email);
-             ps.executeQuery();
-             ps.getResultSet().next();
-             if (ps.getResultSet().next()) {
+            ResultSet rs=  ps.executeQuery();
+             if (rs.next()) {
                     user = new User(ps.getResultSet().getInt("id"),
                             ps.getResultSet().getString("email"),
                             ps.getResultSet().getString("password"));

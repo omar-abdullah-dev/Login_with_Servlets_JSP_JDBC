@@ -34,6 +34,23 @@ public class UserRepo {
         }
         return user;
     }
+//   signup user
+        public boolean signup(String email, String password) {
+            String query = "INSERT INTO users (email, password) VALUES (?, ?)";
+            try(
+                    Connection connection = DBConnection.getInstance().getConnection();
+                    PreparedStatement statement = connection.prepareStatement(query);
+            ){
+                statement.setString(1, email);
+                statement.setString(2, password);
+                int rowsInserted = statement.executeUpdate();
+                return rowsInserted > 0;
+            }catch (Exception ex){
+                System.out.println("An error occurred during signup: " + ex.getMessage());
+                ex.printStackTrace();
+                return false;
+            }
+        }
 
 
 }

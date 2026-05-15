@@ -109,6 +109,9 @@
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" required>
             </div>
+            <% if (request.getAttribute("errorMessage") != null) { %>
+                <div class="error"><%= request.getAttribute("errorMessage") %></div>
+            <% } %>
             <div class="field">
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" required>

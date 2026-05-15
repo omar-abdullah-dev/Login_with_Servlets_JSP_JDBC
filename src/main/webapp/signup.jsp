@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title> Signup page</title>
+    <title> Sign Up page</title>
     <style>
         body {
             margin: 0;
@@ -104,7 +104,7 @@
 <body>
 <div class="page">
     <div class="card">
-        <h1>Signup</h1>
+        <h1>Sign Up</h1>
         <form action="<%= request.getContextPath() %>/signup" method="post" id="signupForm">
             <input type="hidden" >
             <div class="field">
@@ -121,14 +121,22 @@
                 <div class="hint">Use the same password again to confirm.</div>
                 <div class="error" id="passwordError"></div>
             </div>
+            <%--have an account? login--%>
+            <dev>
+                <p style="text-align: center; margin-top: 16px; font-size: 13px;">
+                    Already have an account?
+                    <a href="login.jsp" style="color: #3498db; text-decoration: none; font-weight: 600;">Login here</a>
+                </p>
+            </dev>
             <div class="actions">
-                <button type="submit">Signup</button><% if (request.getAttribute("errorMessage") != null) { %>
+                <button type="submit">Sign Up</button><% if (request.getAttribute("errorMessage") != null) { %>
     <div class="error"><%= request.getAttribute("errorMessage") %></div>
 <% } %>
             </div>
         </form>
     </div>
 </div>
+
 <script>
     (function () {
         var form = document.getElementById("signupForm");

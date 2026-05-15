@@ -1,7 +1,9 @@
 package com.controller;
 
 import com.dao.UserDAO;
+import com.models.ResultModel;
 import com.models.User;
+import com.services.AddNewService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -69,13 +71,20 @@ public class UserServlet extends HttpServlet {
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/newForm.jsp");
         requestDispatcher.forward(req,resp);
     }
+
     private void insertUser(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
-        User user = new User(email,password);
-        dao.insertUser(user);
-        resp.sendRedirect(req.getContextPath() + "/users?action=list");
+        AddNewService addNewService = new AddNewService();
+        ResultModel addNewResult = addNewService.addNewUser(email,password);
+        if (addNewResult.isSuccess()) {
+            req.setAttribute("addNewResult", addNewResult);
+            resp.sendRedirect(req.getContextPath() + "/users?action=list");
+        } else {
+            req.setAttribute("errorMessage", addNewResult.getMessage());
+            req.getRequestDispatcher("/newForm.jsp").forward(req, resp);
+        }
     }
      private void updateUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
          int id = Integer.parseInt(req.getParameter("id"));
