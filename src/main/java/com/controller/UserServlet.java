@@ -73,7 +73,7 @@ public class UserServlet extends HttpServlet {
             throws ServletException, IOException {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
-        User user = new User(0, email,password);
+        User user = new User(email,password);
         dao.insertUser(user);
         resp.sendRedirect(req.getContextPath() + "/users?action=list");
     }

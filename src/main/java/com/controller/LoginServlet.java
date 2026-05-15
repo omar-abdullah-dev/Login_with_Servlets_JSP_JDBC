@@ -29,7 +29,6 @@ import java.io.IOException;
 public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private final AuthService loginService=new AuthService();
-    DBConnection db=DBConnection.getInstance();
 
     @Override
     protected void doGet(
@@ -46,9 +45,10 @@ public class LoginServlet extends HttpServlet {
         String password=request.getParameter("password");
         boolean isValid = loginService.Login(email,password);
         if (isValid) {
-            response.sendRedirect("home.jsp");
+            response.sendRedirect(request.getContextPath() + "/users?action=list");
         } else {
-            response.sendRedirect("failed.jsp");
+            request.setAttribute("errorMessage", "Invalid email or password");
+            request.getRequestDispatcher("/login.jsp").forward(request, response);
         }
     }
 }

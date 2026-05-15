@@ -34,9 +34,7 @@ public class UserDAO {
          ){
              ps.setString(1,user.getEmail());
              ps.setString(2,user.getPassword());
-             ps.executeQuery();
-             ps.getResultSet().next();
-             return true;
+             return ps.executeUpdate() > 0;
          }catch (Exception ex){
              System.out.println("An error occurred during inserting user: " + ex.getMessage());
              ex.printStackTrace();
